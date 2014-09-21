@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+ 
+  	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
+ 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+ 	
+	<bean id="masterpreparationService" class="com.jira.ingest.service.MasterpreparationService">
+		<property name="fileParser" ref="fileParser" />
+		<property name="jiraClient" ref="jiraClient" />
+	</bean>
+	
+	<bean id="fileParser" class="com.jira.ingest.util.FileParser" /> 
+	<bean id="jiraClient" class="com.jira.ingest.jiraClient.JiraClient" /> 
+	
+	<bean class="com.jira.ingest.controller.FileUploadController">
+		<property name="formView" value="FileUploadForm" />
+		<property name="successView" value="FileUploadSuccess" />
+		<property name="masterpreparationService" ref="masterpreparationService" />
+ 
+		<!-- Map a validator -->
+		<property name="validator">
+			<bean class="com.jira.ingest.validator.FileUploadValidator" />
+		</property>
+	</bean>	
+ 
+ 	<bean id="viewResolver"
+	      class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+          <property name="prefix">
+              <value>/WEB-INF/pages/</value>
+           </property>
+          <property name="suffix">
+             <value>.jsp</value>
+          </property>
+    </bean>
+ 
+</beans>
