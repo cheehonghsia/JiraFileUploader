@@ -15,6 +15,10 @@ import com.jira.ingest.domainmodel.FileUpload;
 import com.jira.ingest.service.IMasterpreparationService;
 import com.jira.ingest.util.Mapper;
 
+/**
+ * @author Chee-Hong Hsia
+ *
+ */
 public class FileUploadController extends SimpleFormController{
 	private IMasterpreparationService masterpreparationService;
 	
